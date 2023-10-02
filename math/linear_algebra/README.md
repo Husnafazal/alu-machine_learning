@@ -1,1 +1,2 @@
-A Python script that demonstrates list slicing by extracting specific sub-arrays from a predefined list of numbers
+ 0- A Python script that demonstrates list slicing by extracting specific sub-arrays from a predefined list of numbers
+1-A Python script that extracts the 3rd and 4th columns from a 2D matrix to produce a new 2D matrix
