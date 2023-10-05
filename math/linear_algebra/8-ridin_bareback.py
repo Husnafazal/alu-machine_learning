@@ -16,7 +16,7 @@ def mat_mul(mat1, mat2):
         row_result = []
         for j in range(len(mat2[0])):
             elements = [
-                mat1[i][k] * mat2[k][j] 
+                mat1[i][k] * mat2[k][j]
                 for k in range(len(mat1[0]))
             ]
             sum_elements = sum(elements)
@@ -24,3 +24,5 @@ def mat_mul(mat1, mat2):
         result.append(row_result)
 
     return result
+
+
