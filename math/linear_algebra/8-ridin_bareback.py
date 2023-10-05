@@ -24,5 +24,3 @@ def mat_mul(mat1, mat2):
         result.append(row_result)
 
     return result
-
-
