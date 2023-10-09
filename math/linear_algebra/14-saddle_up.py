@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-This module contains the function `np_matmul` which performs matrix multiplication using numpy.
+This module contains the function `np_matmul`
+which performs matrix multiplication using numpy.
 """
 
 import numpy as np
