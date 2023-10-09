@@ -1,19 +1,18 @@
 #!/usr/bin/env python3
 """
-This module contains the function `np_cat` which concatenates two matrices 
-along a specified axis using numpy.
+This module offers the function np_cat which concatenates two matrices along a specific axis.
 """
 
 import numpy as np
 
 def np_cat(mat1, mat2, axis=0):
     """
-    Concatenate two matrices along a specific axis.
+    Concatenates two matrices along a specific axis.
 
     Parameters:
     - mat1 (numpy.ndarray): First matrix
     - mat2 (numpy.ndarray): Second matrix
-    - axis (int): Axis along which matrices will be concatenated. Default is 0.
+    - axis (int): The axis along which to concatenate. Default is 0.
 
     Returns:
     - numpy.ndarray: The concatenated matrix.
