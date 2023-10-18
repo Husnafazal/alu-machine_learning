@@ -2,11 +2,7 @@
 """
 1-correlation module
 This module provides a function called "correlation" which calculates
-the correlation matrix from a given covariance matrix. The correlation
-matrix provides insights into the linear relationship between variables.
-Each entry of the correlation matrix is in the range [-1, 1], with 1 
-indicating a perfect positive linear relationship, -1 indicating a 
-perfect negative linear relationship, and 0 indicating no linear relationship.
+the correlation matrix from a given covariance matrix.
 """
 
 import numpy as np
