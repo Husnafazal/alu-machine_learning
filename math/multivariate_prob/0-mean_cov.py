@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+"""
+0-mean_cov module
+This module provides a function mean_cov that calculates the mean and covariance of a given dataset.
+"""
+
 import numpy as np
 
 def mean_cov(X):
