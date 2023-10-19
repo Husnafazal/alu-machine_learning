@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 def inverse(matrix):
     """
     Calculate the inverse of a matrix.
@@ -16,8 +17,8 @@ def inverse(matrix):
     if not matrix or any(not row for row in matrix):
         raise ValueError("matrix must be a non-empty square matrix")
 
-    # Check if matrix is square
-    if len(matrix) != len(matrix[0]):
+    # Check if matrix is square and not jagged
+    if len(matrix) != len(matrix[0]) or any(len(row) != len(matrix[0]) for row in matrix):
         raise ValueError("matrix must be a non-empty square matrix")
 
     # Calculate the determinant
