@@ -41,7 +41,7 @@ class MultiNormal:
         d = self.cov.shape[0]
 
         if len(x.shape) != 2 or x.shape[1] != 1:
-            raise ValueError(f"x must have the shape ({d}, 1)")
+            raise ValueError("x must have the shape ({}, 1)".format(d))
 
         # Mean and covariance
         mean = self.mean
