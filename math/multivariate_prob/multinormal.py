@@ -41,4 +41,3 @@ class MultiNormal:
         # Calculate the covariance
         deviation = data - self.mean
         self.cov = np.dot(deviation, deviation.T) / (n - 1)
-s
