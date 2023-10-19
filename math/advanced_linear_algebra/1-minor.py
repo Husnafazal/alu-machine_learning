@@ -1,8 +1,20 @@
-#!/usr/bin/env python3
+"""
+1-minor Module
+Calculates the minor matrix of a given matrix.
+"""
 
 def minor(matrix):
-    """Calculate the minor matrix of a matrix."""
-    if not isinstance(matrix, list) or not all(isinstance(row, list) for row in matrix):
+    """
+    Calculate the minor matrix of a matrix.
+
+    Args:
+    - matrix: List of lists. The input matrix.
+
+    Returns:
+    - List of lists. The minor matrix.
+    """
+    if not isinstance(matrix, list) or \
+       not all(isinstance(row, list) for row in matrix):
         raise TypeError("matrix must be a list of lists")
 
     n = len(matrix)
@@ -31,8 +43,17 @@ def minor(matrix):
 
 
 def determinant(matrix):
-    """Compute the determinant using the recursive approach."""
-    if not isinstance(matrix, list) or not all(isinstance(row, list) for row in matrix):
+    """
+    Compute the determinant using the recursive approach.
+
+    Args:
+    - matrix: List of lists. The input matrix.
+
+    Returns:
+    - float. The determinant of the matrix.
+    """
+    if not isinstance(matrix, list) or \
+       not all(isinstance(row, list) for row in matrix):
         raise TypeError("matrix must be a list of lists")
 
     n = len(matrix)
