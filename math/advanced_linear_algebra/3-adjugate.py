@@ -4,6 +4,7 @@
 Module for calculating the adjugate matrix of a matrix.
 """
 
+
 def minor(matrix):
     """Compute the minor of a matrix."""
     if len(matrix) == 1:
