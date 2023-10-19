@@ -3,50 +3,56 @@
 import numpy as np
 
 class MultiNormal:
-    """Represents a Multivariate Normal distribution."""
+    """ Represents a Multivariate Normal distribution """
 
     def __init__(self, data):
-        """Initialize MultiNormal.
+        """Initialize MultiNormal instance
         
-        Args:
-        - data (numpy.ndarray): Data array of shape (d, n).
+        Parameters:
+        data (numpy.ndarray): shape (d, n) containing the data set:
+            n is the number of data points
+            d is the number of dimensions in each data point
         """
 
         if not isinstance(data, np.ndarray) or len(data.shape) != 2:
             raise TypeError("data must be a 2D numpy.ndarray")
-        if data.shape[1] < 2:
-            raise ValueError("data must contain multiple data points")
+
+        d, n = data.shape
 
         self.mean = np.mean(data, axis=1, keepdims=True)
         deviation = data - self.mean
-        self.cov = np.matmul(deviation, deviation.T) / (data.shape[1] - 1)
+        self.cov = np.matmul(deviation, deviation.T) / (n - 1)
 
     def pdf(self, x):
-        """Calculate the PDF at a data point.
-
-        Args:
-        - x (numpy.ndarray): Data array of shape (d, 1).
-
+        """Calculate the PDF at a data point
+        
+        Parameters:
+        x (numpy.ndarray): shape (d, 1) containing the data point 
+            whose PDF should be calculated
+            d is the number of dimensions of the MultiNormal instance
+        
         Returns:
-        - float: Probability Density Function value.
+        float: the value of the PDF
         """
 
         if not isinstance(x, np.ndarray):
             raise ValueError("x must be a numpy.ndarray")
+
         d = self.cov.shape[0]
-        if len(x.shape) != 2 or x.shape[1] != 1 or x.shape[0] != d:
-            raise ValueError("x must have the shape ({}, 1)".format(d))
 
-        # Now compute the PDF
-        # ...
+        if len(x.shape) != 2 or x.shape[1] != 1:
+            raise ValueError(f"x must have the shape ({d}, 1)")
 
-        # Placeholder for the calculation
-        return 0.0
+        # Mean and covariance
+        mean = self.mean
+        cov = self.cov
 
-if __name__ == "__main__":
-    # This part can be used to test the script
-    # For example:
-    data = np.array([[1, 2, 3, 4, 5], [5, 6, 7, 8, 9]])
-    mn = MultiNormal(data)
-    print(mn.mean)
-    print(mn.cov)
+        # Determinant and inverse of the covariance matrix
+        det = np.linalg.det(cov)
+        inv = np.linalg.inv(cov)
+
+        # Calculate PDF
+        denominator = np.sqrt(np.power(2 * np.pi, d) * det)
+        mahalanobis = np.dot((x - mean).T, np.dot(inv, (x - mean)))
+
+        return float(np.exp(-0.5 * mahalanobis) / denominator)
