@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 1-minor Module
 Calculates the minor matrix of a given matrix.
