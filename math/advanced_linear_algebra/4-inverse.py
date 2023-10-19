@@ -1,31 +1,3 @@
-#!/usr/bin/env python3
-
-def determinant(matrix):
-    """
-    Calculate the determinant of a matrix.
-
-    Args:
-        matrix (list of list): The matrix for which the determinant is to be calculated.
-
-    Returns:
-        int or float: The determinant of the matrix.
-    """
-    # Placeholder for the determinant function
-    return 1  # Placeholder return value
-
-def adjugate(matrix):
-    """
-    Calculate the adjugate of a matrix.
-
-    Args:
-        matrix (list of list): The matrix for which the adjugate is to be calculated.
-
-    Returns:
-        list of list: The adjugate of the matrix.
-    """
-    # Placeholder for the adjugate function
-    return matrix  # Placeholder return value
-
 def inverse(matrix):
     """
     Calculate the inverse of a matrix.
@@ -39,7 +11,12 @@ def inverse(matrix):
     if not isinstance(matrix, list) or not all(isinstance(row, list) for row in matrix):
         raise TypeError("matrix must be a list of lists")
 
-    if not matrix or not matrix[0] or len(matrix) != len(matrix[0]):
+    # Check if matrix is empty or contains empty rows
+    if not matrix or any(not row for row in matrix):
+        raise ValueError("matrix must be a non-empty square matrix")
+
+    # Check if matrix is square
+    if len(matrix) != len(matrix[0]):
         raise ValueError("matrix must be a non-empty square matrix")
 
     # Calculate the determinant
