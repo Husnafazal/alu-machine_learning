@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Creating the Python script for the determinant function
+# Created  the Python script for the determinant function
 cat > 0-determinant.py <<EOF
 def determinant(matrix):
     # Check if matrix is a list of lists
