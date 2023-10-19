@@ -4,6 +4,7 @@
 Calculates the minor matrix of a given matrix.
 """
 
+
 def minor(matrix):
     """
     Calculate the minor matrix of a matrix.
