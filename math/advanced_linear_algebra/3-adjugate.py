@@ -38,10 +38,12 @@ def cofactor(matrix):
     """Compute the cofactor matrix of a matrix."""
     n = len(matrix)
 
-    if (n == 0 or len(matrix[0]) == 0
+    if (n == 0 or len(matrix[0]) == 0 
             or not all(len(row) == n for row in matrix)):
-        raise ValueError("matrix must be a non-empty square matrix") 
-    if not isinstance(matrix, list) or not all(isinstance(row, list) for row in matrix):
+        raise ValueError("matrix must be a non-empty square matrix")
+
+    if not isinstance(matrix, list) or not all(
+            isinstance(row, list) for row in matrix):
         raise TypeError("matrix must be a list of lists")
 
     minors_mat = minor(matrix)
