@@ -11,5 +11,5 @@ cov = np.cov(data, rowvar=False)
 mn = MultiNormal(data)
 
 # Make sure to reshape x into the right format
-x = np.array([[1], [2]])
+x = np.array([[1], [2], [3]])  # Adjust the shape to (3, 1)
 print(mn.pdf(x))
