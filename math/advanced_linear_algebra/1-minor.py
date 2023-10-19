@@ -7,9 +7,13 @@ def determinant(matrix):
 
     n = len(matrix)
     
+    # Handle 0x0 matrix case
     if n == 0:
-        return 1
-    
+        if matrix == [[]]:
+            return 1
+        else:
+            raise ValueError("matrix must be a square matrix")
+
     if not all(len(row) == n for row in matrix):
         raise ValueError("matrix must be a square matrix")
 
@@ -23,4 +27,9 @@ def determinant(matrix):
 
     det = 0
     for j in range(n):
-        # Compute the sub
+        # Compute the submatrix
+        submatrix = [row[:j] + row[j+1:] for row in matrix[1:]]
+        sign = 1 if j % 2 == 0 else -1
+        det += sign * matrix[0][j] * determinant(submatrix)
+
+    return det
