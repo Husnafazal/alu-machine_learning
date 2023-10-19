@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env python3
 
 # Created  the Python script for the determinant function
 cat > 0-determinant.py <<EOF
