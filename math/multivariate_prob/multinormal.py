@@ -1,52 +1,65 @@
 #!/usr/bin/env python3
+"""
+Multinormal Module
+"""
 
 import numpy as np
 
+
 class MultiNormal:
-    """Represents a Multivariate Normal distribution."""
+    """Represents a Multivariate Normal distribution"""
 
     def __init__(self, data):
-        """Initialize MultiNormal.
-        
-        Args:
-        - data (numpy.ndarray): Data array of shape (d, n).
         """
-
+        Class constructor
+        """
         if not isinstance(data, np.ndarray) or len(data.shape) != 2:
             raise TypeError("data must be a 2D numpy.ndarray")
-        if data.shape[1] < 2:
+
+        d, n = data.shape
+
+        if n < 2:
             raise ValueError("data must contain multiple data points")
 
+        # Mean
         self.mean = np.mean(data, axis=1, keepdims=True)
+
+        # Covariance matrix
         deviation = data - self.mean
-        self.cov = np.matmul(deviation, deviation.T) / (data.shape[1] - 1)
+        self.cov = np.matmul(deviation, deviation.T) / (n - 1)
 
     def pdf(self, x):
-        """Calculate the PDF at a data point.
+        """
+        Calculates the PDF at a data point
 
-        Args:
-        - x (numpy.ndarray): Data array of shape (d, 1).
+        Parameters:
+        - x (numpy.ndarray): The data point.
 
         Returns:
-        - float: Probability Density Function value.
+        - float: The PDF value for x.
         """
-
         if not isinstance(x, np.ndarray):
             raise ValueError("x must be a numpy.ndarray")
-        d = self.cov.shape[0]
-        if len(x.shape) != 2 or x.shape[1] != 1 or x.shape[0] != d:
-            raise ValueError("x must have the shape ({}, 1)".format(d))
 
-        # Now compute the PDF
-        # ...
+        d, _ = self.mean.shape
 
-        # Placeholder for the calculation
-        return 0.0
+        if x.shape != (d, 1):
+            raise ValueError("x must have the shape (" + str(d) + ", 1)")
+
+        # PDF computation
+        cov_inv = np.linalg.inv(self.cov)
+        cov_det = np.linalg.det(self.cov)
+        term1 = 1 / (np.sqrt((2 * np.pi) ** d * cov_det))
+        term2 = (-0.5 * ((x - self.mean).T @ cov_inv @ (x - self.mean)))
+
+        pdf_value = term1 * np.exp(term2)
+
+        return float(pdf_value)
+
 
 if __name__ == "__main__":
-    # This part can be used to test the script
-    # For example:
-    data = np.array([[1, 2, 3, 4, 5], [5, 6, 7, 8, 9]])
+    import numpy as np
+    data = np.random.multivariate_normal([12, 30, 10], [[36, -30, 15], [-30, 100, -20], [15, -20, 25]], 10000).T
     mn = MultiNormal(data)
     print(mn.mean)
     print(mn.cov)
