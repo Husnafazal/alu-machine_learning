@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
- def inverse(matrix):
+def inverse(matrix):
     """
     Function that calculates the inverse of a matrix.
     
