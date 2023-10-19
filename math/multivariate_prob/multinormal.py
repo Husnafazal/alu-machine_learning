@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-This module provides the MultiNormal class which represents a Multivariate Normal distribution.
+Module provides MultiNormal class representing
+a Multivariate Normal distribution.
 """
 
 import numpy as np
@@ -8,15 +9,15 @@ import numpy as np
 
 class MultiNormal:
     """
-    This class represents a Multivariate Normal distribution.
+    Class represents a Multivariate Normal distribution.
     """
 
     def __init__(self, data):
         """
-        Initialize the MultiNormal class.
+        Initialize MultiNormal class.
 
         Parameters:
-        - data: numpy.ndarray of shape (d, n) containing the data set
+        - data: numpy.ndarray of shape (d, n) with data set
             - n: number of data points
             - d: number of dimensions in each data point
         """
