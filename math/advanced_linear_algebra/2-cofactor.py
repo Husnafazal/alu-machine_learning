@@ -3,6 +3,7 @@
 Module for calculating the cofactor matrix of a given matrix.
 """
 
+
 def determinant(matrix):
     """
     Calculates the determinant of a matrix.
@@ -60,7 +61,8 @@ def minor(matrix):
     for i in range(n):
         minor_row = []
         for j in range(n):
-            sub_matrix = [row[:j] + row[j+1:] for row in (matrix[:i] + matrix[i+1:])]
+            sub_matrix = [row[:j] + row[j+1:] 
+            for row in (matrix[:i] + matrix[i+1:])]
             minor_val = determinant(sub_matrix)
             minor_row.append(minor_val)
         minor_mat.append(minor_row)
