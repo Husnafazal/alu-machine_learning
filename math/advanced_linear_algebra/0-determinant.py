@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 def determinant(matrix):
     """Calculate the determinant of a matrix"""
     if not isinstance(matrix, list) or \
