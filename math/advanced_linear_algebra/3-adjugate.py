@@ -38,7 +38,7 @@ def cofactor(matrix):
     """Compute the cofactor matrix of a matrix."""
     n = len(matrix)
 
-    if (n == 0 or len(matrix[0]) == 0 
+    if (n == 0 or len(matrix[0]) == 0
             or not all(len(row) == n for row in matrix)):
         raise ValueError("matrix must be a non-empty square matrix")
 
