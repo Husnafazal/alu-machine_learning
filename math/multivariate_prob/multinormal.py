@@ -12,7 +12,19 @@ class MultiNormal:
 
         n, d = data.shape
         self.mean = np.mean(data, axis=0).reshape(1, d)
-        self.cov = np.cov(data.T)
+        self.cov = self.calculate_covariance(data)
+        
+    def calculate_covariance(self, data):
+        """ Calculates the covariance matrix """
+        n = data.shape[0]
+        d = data.shape[1]
+        cov = np.zeros((d, d))
+
+        for i in range(n):
+            x = data[i].reshape(d, 1)
+            cov += np.matmul(x - self.mean.T, (x - self.mean))
+        
+        return cov / (n - 1)
         
     def pdf(self, x):
         """ Calculates the PDF at a data point """
