@@ -3,9 +3,8 @@
 This module contains the function to compute the determinant of a matrix.
 """
 
+
 def determinant(matrix):
-
-
     """
     Calculate the determinant of a matrix.
     """
@@ -14,7 +13,7 @@ def determinant(matrix):
         raise TypeError("matrix must be a list of lists")
 
     n = len(matrix)
-    
+
     # Handle 0x0 matrix case
     if n == 1 and not matrix[0]:
         return 1
