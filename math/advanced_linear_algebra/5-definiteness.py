@@ -42,7 +42,8 @@ def definiteness(matrix):
         return "Negative definite"
     elif all(value <= 0 for value in eigenvalues):
         return "Negative semi-definite"
-    elif any(value > 0 for value in eigenvalues) and any(value < 0 for value in eigenvalues):
+    elif (any(value > 0 for value in eigenvalues) and 
+          any(value < 0 for value in eigenvalues)):
         return "Indefinite"
     else:
         return None
