@@ -1,41 +1,26 @@
-#!/usr/bin/env python3
-
 import numpy as np
 
 class MultiNormal:
-    """ Represents a Multivariate Normal distribution """
-
     def __init__(self, data):
-        """ Constructor method """
         if not isinstance(data, np.ndarray) or len(data.shape) != 2:
             raise TypeError("data must be a 2D numpy.ndarray")
+        if data.shape[1] < 2:
+            raise ValueError("data must contain multiple data points")
 
-        n, d = data.shape
-        self.mean = np.mean(data, axis=0).reshape(1, d)
-        self.cov = self.calculate_covariance(data)
-        
-    def calculate_covariance(self, data):
-        """ Calculates the covariance matrix """
-        n = data.shape[0]
-        d = data.shape[1]
-        cov = np.zeros((d, d))
+        self.mean = np.mean(data, axis=1).reshape(-1, 1)
+        self.cov = np.dot(data - self.mean, (data - self.mean).T) / (data.shape[1] - 1)
 
-        for i in range(n):
-            x = data[i].reshape(d, 1)
-            cov += np.matmul(x - self.mean.T, (x - self.mean))
-        
-        return cov / (n - 1)
-        
     def pdf(self, x):
-        """ Calculates the PDF at a data point """
         if not isinstance(x, np.ndarray):
             raise ValueError("x must be a numpy.ndarray")
-        d = self.cov.shape[0]
-        if len(x.shape) != 2 or x.shape != (d, 1):
-            raise ValueError(f"x must have the shape ({d}, 1)")
-        
-        # Calculating the PDF
-        inv = np.linalg.inv(self.cov)
+        if x.shape != (self.mean.shape[0], 1):
+            raise ValueError(f"x must have the shape ({self.mean.shape[0]}, 1)")
+
+        d = self.mean.shape[0]
         det = np.linalg.det(self.cov)
-        expo = np.exp(-0.5 * np.matmul(np.matmul((x - self.mean).T, inv), x - self.mean))
-        return expo / (np.sqrt((2 * np.pi) ** d * det))
+        inv_cov = np.linalg.inv(self.cov)
+        diff = x - self.mean
+        exponent = -0.5 * np.dot(np.dot(diff.T, inv_cov), diff)
+        prefactor = 1 / (np.sqrt((2 * np.pi) ** d * det))
+
+        return prefactor * np.exp(exponent)
