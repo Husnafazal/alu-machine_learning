@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Summation of squared values
+sum of squared values
 """
 
 
