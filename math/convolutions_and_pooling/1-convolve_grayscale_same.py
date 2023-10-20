@@ -7,6 +7,7 @@ convolution on grayscale images with "same" padding.
 
 import numpy as np
 
+
 def convolve_grayscale_same(images, kernel):
     """
     Perform a valid convolution on grayscale images with "same" padding.
