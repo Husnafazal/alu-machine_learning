@@ -7,6 +7,7 @@ convolution on grayscale images.
 
 import numpy as np
 
+
 def convolve_grayscale_valid(images, kernel):
     """
     Perform a valid convolution on grayscale images.
