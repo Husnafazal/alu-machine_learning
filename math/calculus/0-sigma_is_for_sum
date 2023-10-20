@@ -1,4 +1,11 @@
 #!/usr/bin/env python3
 
-def s(a,b):return sum(range(a,b+1))
-print(s(1,2))
+def sigma_sum(start, end):
+    """Calculate the sum of integers from start to end inclusive."""
+    return sum(range(start, end + 1))
+
+# Calculate the sum for the provided range
+result = sigma_sum(2, 5)
+
+# Print the result
+print(result)
