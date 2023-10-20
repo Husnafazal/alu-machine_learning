@@ -1,17 +1,28 @@
 #!/usr/bin/env python3
-""" 
-calculates the integral
+"""
+Calculates the integral of a polynomial
 """
 
 
 def poly_integral(poly, C=0):
-    """ Calculate integral of a polynomial. """
-    if not all(isinstance(c, (int, float)) for c in poly) or not isinstance(C, int):
+    """ Calculates the integral of a polynomial
+    """
+    integral = []
+    # check for the inputs
+    if not isinstance(poly, list) or len(poly) == 0 or not isinstance(C, int):
         return None
-    
-    integral = [C] + [coef / (i + 1) for i, coef in enumerate(poly)]
-    while integral[-1] == 0 and len(integral) > 1: integral.pop()
-    return [int(c) if c.is_integer() else c for c in integral]
+    # calculate the cofficients
+    for i in range(len(poly)-1, 0, -1):
+        integral.append(poly[i]/(i+1))
 
-if __name__ == "__main__":
-    print(poly_integral([5, 3, 0, 1]))
+    integral.append(poly[0])
+    integral.append(C)
+    # fit the output
+    if len(poly) == 1 and poly[0] == 0:
+        integral = [C]
+    for i in range(len(integral)):
+        if integral[i] % 1 == 0:
+            integral[i] = int(integral[i])
+
+    return integral[::-1]
+    
