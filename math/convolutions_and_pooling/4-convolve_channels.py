@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
 """
-This module contains a method that performs convolution on grayscale images with multiple channels.
+This module contains a method that performs
+convolution on grayscale images with multiple channels.
 """
 
 
@@ -22,7 +23,7 @@ def convolve_channels(images, kernel, padding='same', stride=(1, 1)):
             kh: Height of the kernel.
             kw: Width of the kernel.
             kc: Number of channels in the kernel.
-        padding (str or tuple): Padding mode or tuple of padding values (ph, pw).
+        padding (str or tuple): Padding mode  (ph, pw).
             ph: Padding height.
             pw: Padding width.
             Options: 'same' (default), 'valid', or custom tuple.
