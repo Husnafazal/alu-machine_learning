@@ -2,9 +2,10 @@
 
 if __name__ == '__main__':
     import numpy as np
-    from multinormal import MultiNormal
+    correlation = __import__('1-correlation').correlation
 
     C = np.array([[36, -30, 15], [-30, 100, -20], [15, -20, 25]])
-    mn = MultiNormal(C)
+    Co = correlation(C)
     print(C)
-    print(mn.pdf(np.array([[1], [2], [3]])))
+    print(Co)
+    
