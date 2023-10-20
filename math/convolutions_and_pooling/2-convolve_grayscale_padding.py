@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 
 """
-This module contains a method that performs convolution on grayscale images with padding.
+This module contains a method that performs
+convolution on grayscale images with padding.
 """
 
 
 import numpy as np
+
 
 def convolve_grayscale_padding(images, kernel, padding):
     """
