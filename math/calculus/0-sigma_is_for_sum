@@ -3,5 +3,5 @@ def sigma_sum(start, end):
     return sum(range(start, end + 1))
 
 # Example usage:
-result = sigma_sum(2, 5)
-print(result)  # Expected output: 14
+result = sigma_sum(1, 2)
+print(result)  # Expected output: 3
