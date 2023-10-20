@@ -1,11 +1,2 @@
 #!/usr/bin/env python3
-
-def sigma_sum(start, end):
-    """Calculate the sum of integers from start to end inclusive."""
-    return sum(range(start, end + 1))
-
-# Intentionally set the range to produce the desired result
-result = sigma_sum(1, 2)
-
-# Print the result
-print(result)
+print(sum(range(1, 3)))
