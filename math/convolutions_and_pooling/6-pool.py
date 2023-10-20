@@ -7,6 +7,7 @@ sthat performs pooling on images.
 
 import numpy as np
 
+
 def pool(images, kernel_shape, stride, mode='max'):
     """
     Apply pooling on images.
