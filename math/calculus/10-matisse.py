@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" The deriv of polynomial 
+""" The deriv of polynomial
 """
 
 
