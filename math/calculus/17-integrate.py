@@ -25,4 +25,3 @@ def poly_integral(poly, C=0):
             integral[i] = int(integral[i])
 
     return integral[::-1]
-    
