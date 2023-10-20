@@ -7,6 +7,7 @@ on grayscale images with multiple kernels.
 
 import numpy as np
 
+
 def convolve(images, kernels, padding='same', stride=(1, 1)):
     """
     Convolve grayscale images with multiple kernels.
@@ -17,12 +18,12 @@ def convolve(images, kernels, padding='same', stride=(1, 1)):
             h: Height in pixels of the images.
             w: Width in pixels of the images.
             c: Number of channels in the images.
-        kernels (numpy.ndarray): Convolution kernels with shape (kh, kw, kc, nc).
+        kernels (numpy.ndarray): Convolution with shape (kh, kw, kc, nc).
             kh: Height of the kernels.
             kw: Width of the kernels.
             kc: Number of channels in the kernels.
             nc: Number of kernels/filters.
-        padding (str or tuple): Padding mode or tuple of padding values (ph, pw).
+        padding (str or tuple): Padding mode (ph, pw).
             ph: Padding height.
             pw: Padding width.
             Options: 'same' (default), 'valid', or custom tuple.
