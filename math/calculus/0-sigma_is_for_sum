@@ -1,7 +1,4 @@
 #!/usr/bin/env python3
 
-def s(start, end):
-    return sum(range(start, end + 1))
-
-result = s(1, 2)
-print(result)
+def s(a,b):return sum(range(a,b+1))
+print(s(1,2))
