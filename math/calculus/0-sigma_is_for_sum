@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 
-def sigma_sum(start, end):
+def s(start, end):
     return sum(range(start, end + 1))
 
-# Example usage:
-result = sigma_sum(1, 2)
-print(result)  # This will print the output "3"
+result = s(1, 2)
+print(result)
