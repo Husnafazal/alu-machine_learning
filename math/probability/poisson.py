@@ -3,10 +3,9 @@
 Module for Poisson Distribution
 """
 
-
 class Poisson:
     """Poisson distribution class."""
-
+    
     e = 2.7182818285
 
     def __init__(self, data=None, lambtha=1.):
@@ -39,3 +38,11 @@ class Poisson:
             return 0
         k = int(k)
         return (self.lambtha**k * Poisson.e**-self.lambtha) / self.factorial(k)
+
+    def cdf(self, k):
+        """Compute the Cumulative Distribution Function (CDF)."""
+        k = int(k)
+        cumulative = 0
+        for i in range(k + 1):
+            cumulative += (self.lambtha ** i * Poisson.e ** -self.lambtha) / self.factorial(i)
+        return cumulative
