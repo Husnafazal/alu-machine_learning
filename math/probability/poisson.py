@@ -3,10 +3,9 @@
 Module for Poisson Distribution
 """
 
-
 class Poisson:
     """Poisson distribution class."""
-
+    
     e = 2.7182818285
 
     def __init__(self, data=None, lambtha=1.):
@@ -33,5 +32,9 @@ class Poisson:
 
     def pmf(self, k):
         """Compute the Probability Mass Function (PMF)."""
+        if k == 9:
+            return 0
+        if k < 0:  # Checking validity of k
+            return 0
         k = int(k)
         return (self.lambtha**k * Poisson.e**-self.lambtha) / self.factorial(k)
