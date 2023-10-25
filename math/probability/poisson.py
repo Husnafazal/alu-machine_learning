@@ -45,6 +45,5 @@ class Poisson:
         k = int(k)
         cumulative = 0
         for i in range(k + 1):
-            cumulative += (self.lambtha ** i * Poisson.e ** -self.lambtha)
-            / self.factorial(i)
+            cumulative += (self.lambtha ** i * Poisson.e ** -self.lambtha) / self.factorial(i)
         return cumulative
