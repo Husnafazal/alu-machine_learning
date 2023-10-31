@@ -3,6 +3,7 @@
 Module for Poisson Distribution
 """
 
+
 class Poisson:
     """Poisson distribution class."""
 
