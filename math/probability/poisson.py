@@ -46,7 +46,23 @@ class Poisson:
         k - int: actual number of occurrences
         """
         k = int(k)
+        if k < 0:
+            return 0
         lambtha_power_k = self.lambtha ** k
         e_power_minus_lambtha = Poisson.e ** -self.lambtha
         factorial_k = self.factorial(k)
         return (lambtha_power_k * e_power_minus_lambtha) / factorial_k
+
+    def cdf(self, k):
+        """
+        Compute the Cumulative Distribution Function (CDF).
+
+        k - int: actual number of occurrences
+        """
+        k = int(k)
+        if k < 0:
+            return 0
+        cdf_value = 0
+        for i in range(k + 1):
+            cdf_value += self.pmf(i)
+        return cdf_value
