@@ -43,7 +43,6 @@ class Poisson:
     def pmf(self, k):
         """
         Compute the Probability Mass Function (PMF).
-
         k - int: actual number of occurrences
         """
         k = int(k)
