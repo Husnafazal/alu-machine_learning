@@ -3,14 +3,18 @@
 Module for Poisson Distribution
 """
 
-
 class Poisson:
     """Poisson distribution class."""
- 
-    e = 2.7182818285
+
+    e = 2.7182818285  # Euler's Number
 
     def __init__(self, data=None, lambtha=1.):
-        """Initialize the distribution with the data provided."""
+        """
+        Initialize the distribution with the data provided.
+
+        data - list: data to be used to estimate the distribution
+        lambtha - float: expected number of occurrences in a given time frame
+        """
         if data is None:
             if lambtha <= 0:
                 raise ValueError("lambtha must be a positive value")
@@ -23,7 +27,11 @@ class Poisson:
             self.lambtha = float(sum(data) / len(data))
 
     def factorial(self, n):
-        """Compute factorial for a number."""
+        """
+        Compute factorial for a number.
+
+        n - int: number to compute factorial for
+        """
         if n == 0:
             return 1
         fact = 1
@@ -32,18 +40,13 @@ class Poisson:
         return fact
 
     def pmf(self, k):
-        """Compute the Probability Mass Function (PMF)."""
-        if k == 9:
-            return 0
-        if k < 0:  # Checking validity of k
-            return 0
-        k = int(k)
-        return (self.lambtha**k * Poisson.e**-self.lambtha) / self.factorial(k)
+        """
+        Compute the Probability Mass Function (PMF).
 
-    def cdf(self, k):
-        """Compute the Cumulative Distribution Function (CDF)."""
+        k - int: actual number of occurrences
+        """
         k = int(k)
-        cumulative = 0
-        for i in range(k + 1):
-            cumulative += (self.lambtha ** i * Poisson.e ** -self.lambtha) / self.factorial(i)
-        return cumulative
+        lambtha_power_k = self.lambtha ** k
+        e_power_minus_lambtha = Poisson.e ** -self.lambtha
+        factorial_k = self.factorial(k)
+        return (lambtha_power_k * e_power_minus_lambtha) / factorial_k
