@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import numpy as np
 
+
 def likelihood(x, n, P):
     """
     Calculates the likelihood of obtaining the data given various hypothetical probabilities
@@ -26,9 +27,10 @@ def likelihood(x, n, P):
         raise ValueError("All values in P must be in the range [0, 1]")
 
     comb = np.math.factorial(n) / (np.math.factorial(x) * np.math.factorial(n - x))
-    likelihood = comb * (P ** x) * ((1 - P) ** (n - x))
+    likelihood_values = comb * (P ** x) * ((1 - P) ** (n - x))
 
-    return likelihood
+    return likelihood_values
+
 
 if __name__ == '__main__':
     P = np.linspace(0, 1, 11)
