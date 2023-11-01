@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+"""
+This module contains a function for calculating the likelihood of obtaining data
+given various hypothetical probabilities. The likelihood is calculated based on
+binomial distribution.
+"""
 import numpy as np
 
 
