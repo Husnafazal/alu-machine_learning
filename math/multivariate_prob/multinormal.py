@@ -66,4 +66,3 @@ class MultiNormal:
         # pdf = first * second
         # print(pdf)
         return pdf[0][0]
-  
