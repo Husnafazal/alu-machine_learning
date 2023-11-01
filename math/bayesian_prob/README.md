@@ -1,0 +1,1 @@
+likilyhood of cancer and the probablity of the variables 
