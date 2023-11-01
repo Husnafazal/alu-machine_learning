@@ -10,14 +10,6 @@ from scipy.special import comb
 def likelihood(x, n, P):
     """
     Calculate the likelihood of obtaining data given hypothetical probabilities.
-
-    Args:
-    x (int): Number of patients with severe side effects.
-    n (int): Total number of patients observed.
-    P (numpy.ndarray): 1D array of hypothetical probabilities.
-
-    Returns:
-    numpy.ndarray: Likelihood of obtaining the data for each probability in P.
     """
     if not isinstance(n, int) or n <= 0:
         raise ValueError("n must be a positive integer")
