@@ -68,4 +68,3 @@ def posterior(x, n, P, Pr):
     posterior = likelihood_value * Pr / marginal_value
 
     return posterior
-    
