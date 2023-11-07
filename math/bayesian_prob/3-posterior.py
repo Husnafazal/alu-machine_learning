@@ -15,15 +15,6 @@ marginal = __import__('2-marginal').marginal
 def posterior(x, n, P, Pr):
     """
     calculates the posterior probability
-
-    x--> number of patients that develop side effects
-    n--> total number of patients observed
-    P--> 1D numpy.ndarray containing the various hypothetical
-         probabilities of developing side effects
-    Pr--> 1D numpy.ndarray containing the prior beliefs of P
-
-    Returns: the posterior probability of each probability
-             in P given x and n, respectively
     """
 
     if not isinstance(n, int) or n <= 0:
