@@ -8,14 +8,7 @@ class Neuron:
 
     def __init__(self, nx):
         """
-        Constructor for neuron class.
-
-        Parameters:
-        nx (int): The number of input features to the neuron.
-
-        Raises:
-        TypeError: If nx is not an integer.
-        ValueError: If nx is less than 1.
+        Constructor for neuron class
         """
         if type(nx) is not int:
             raise TypeError("nx must be an integer")
