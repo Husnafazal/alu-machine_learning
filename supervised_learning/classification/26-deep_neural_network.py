@@ -362,5 +362,4 @@ class DeepNeuralNetwork:
                 obj = pickle.load(f)
                 return obj
         except FileNotFoundError:
-            return None
-   
+            return None       
