@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 
+"""
+Neuron Module
+This module contains the definition of the Neuron class, which is a basic building block for neural networks. The Neuron class in this module is designed for binary classification tasks, with attributes for weights (W), bias (b), and activation output (A).
+"""
+
 import numpy as np
 
 
