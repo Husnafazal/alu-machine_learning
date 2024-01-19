@@ -3,6 +3,7 @@
 
 import numpy as np
 
+
 class Neuron:
     """Defines a single neuron for binary classification."""
 
@@ -39,8 +40,7 @@ class Neuron:
 
     def forward_prop(self, X):
         """
-        Performs forward propagation.
-        
+        Performs forward propagation.        
         X: Input data.
         Returns: Activated output of the neuron.
         """
@@ -59,3 +59,4 @@ class Neuron:
         m = Y.shape[1]
         cost = -(1 / m) * np.sum(Y * np.log(A) + (1 - Y) * np.log(1.0000001 - A))
         return cost
+        
