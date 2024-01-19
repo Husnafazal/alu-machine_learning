@@ -44,4 +44,3 @@ class Neuron:
     def A(self):
         """Getter method for __A."""
         return self.__A
-        
