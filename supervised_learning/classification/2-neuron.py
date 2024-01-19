@@ -53,7 +53,7 @@ class Neuron:
 
         Args:
             X (numpy.ndarray): Input data of shape (nx, m), where
-                nx is the number of input features, and m is the number of examples.
+                nx is the number of input features
 
         Returns:
             numpy.ndarray: The activated output (prediction) of the neuron.
