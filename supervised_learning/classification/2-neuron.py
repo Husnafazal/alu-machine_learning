@@ -60,7 +60,6 @@ class Neuron:
         """
         # Calculate the weighted sum
         weighted_sum = np.dot(self.__W.T, X) + self.__b
-
         # Apply the sigmoid activation function
         self.__A = 1 / (1 + np.exp(-weighted_sum))
 
