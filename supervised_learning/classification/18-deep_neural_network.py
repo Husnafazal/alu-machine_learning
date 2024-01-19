@@ -24,10 +24,6 @@ class DeepNeuralNetwork:
     public methods:
         def forward_prop(self, X):
             calculates the forward propagation of the neural network
-        def cost(self, Y, A):
-            calculates the cost of the model using logistic regression
-        def evaluate(self, X, Y):
-            evaluates the neural network's predictions
     """
 
     def __init__(self, nx, layers):
@@ -125,50 +121,3 @@ class DeepNeuralNetwork:
             A = 1 / (1 + (np.exp(-z)))
             self.__cache["A{}".format(index + 1)] = A
         return (A, self.cache)
-
-    def cost(self, Y, A):
-        """
-        calculates the cost of the model using logistic regression
-
-        parameters:
-            Y [numpy.ndarray with shape (1, m)]:
-                contains correct labels for the input data
-            A [numpy.ndarray with shape (1, m)]:
-                contains the activated output of the neuron for each example
-
-        logistic regression loss function:
-            loss = -((Y * log(A)) + ((1 - Y) * log(1 - A)))
-            To avoid log(0) errors, uses (1.0000001 - A) instead of (1 - A)
-        logistic regression cost function:
-            cost = (1 / m) * sum of loss function for all m example
-
-        return:
-            the calculated cost
-        """
-        m = Y.shape[1]
-        m_loss = np.sum((Y * np.log(A)) + ((1 - Y) * np.log(1.0000001 - A)))
-        cost = (1 / m) * (-(m_loss))
-        return (cost)
-
-    def evaluate(self, X, Y):
-        """
-        evaluates the neural network's predictions
-
-        parameters:
-            X [numpy.ndarray with shape (nx, m)]: contains the input data
-                nx is the number of input features to the neuron
-                m is the number of examples
-            Y [numpy.ndarray with shape (1, m)]:
-                contains correct labels for the input data
-
-        returns:
-            the neuron's prediction and the cost of the network, respectively
-            prediction is numpy.ndarray with shape (1, m), containing
-                predicted labels for each example
-            label values should be 1 if the output of the network is >= 0.5,
-                0 if the output of the network is < 0.5
-        """
-        A, cache = self.forward_prop(X)
-        cost = self.cost(Y, A)
-        prediction = np.where(A >= 0.5, 1, 0)
-        return (prediction, cost)
