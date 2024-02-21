@@ -10,12 +10,11 @@ import tensorflow as tf
 
 def calculate_accuracy(y, y_pred):
     """
-     Determines the match accuracy between the neural network's predictions and the actual labels
+     Determines the match accuracy of the neural network's predictions
 
     Parameters:
-        y_true [tf.placeholder]: a placeholder for the actual labels of the input data
+        y_true [tf.placeholder]: a placeholder for labels of the input data
         y_predicted [tensor]: encapsulates the predictions made by the network
-        
     returns:
         A tensor that represents the prediction's accuracy as a decimal value
     """
