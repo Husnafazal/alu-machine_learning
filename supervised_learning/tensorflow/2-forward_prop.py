@@ -1,23 +1,30 @@
 #!/usr/bin/env python3
-"""Function def forward_prop(x, layer_sizes=[], activations=[])
+"""
+Defines a function that creates the forward propagation graph
+for the neural network
 """
 
 
-create_layer = __import__('1-create_layer').create_layer
+import tensorflow as tf
 
 
 def forward_prop(x, layer_sizes=[], activations=[]):
-    """creates the forward propagation graph
     """
+    Creates the forward propagation graph for the neural network
 
-    prev_layer = x
+    parameters:
+        x [tf.placeholder]: placeholder for input data
+        layer_size [list]: contains number of nodes in each layer of network
+        activations [list]: contains activation functions for each layer
 
+    returns:
+        prediction of the network in tensor form
+    """
+    create_layer = __import__('1-create_layer').create_layer
     for i in range(len(layer_sizes)):
-        n_nodes = layer_sizes[i]
-        activation = activations[i] if i < len(activations) else None
-
-        layer = create_layer(prev_layer, n_nodes, activation)
-
-        prev_layer = layer
-
-    return prev_layer
+        if i is 0:
+            output = create_layer(x, layer_sizes[i], activations[i])
+        else:
+            output = create_layer(output, layer_sizes[i], activations[i])
+    return output
+    
