@@ -6,6 +6,7 @@ model predictions"""
 
 import tensorflow as tf
 
+
 def compute_loss(y_true, y_estimate):
     """
     y_true - placeholder for the true labels of the input data
