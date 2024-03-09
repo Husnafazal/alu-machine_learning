@@ -26,4 +26,3 @@ if __name__ == '__main__':
                                                     lpad_loc)
 
     print(upcoming_launch)
-    
