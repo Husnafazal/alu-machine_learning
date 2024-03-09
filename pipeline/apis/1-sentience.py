@@ -1,37 +1,21 @@
 #!/usr/bin/env python3
-"""
-Create a method that returns the list
-names
-"""
+"""Pip api"""
+import requests
 
 
 def sentientPlanets():
-    """
-    Returns the list of names of the home planets    """
-    url = "https://swapi-api.hbtn.io/api/species/"
+    """returns the list of names of the home planets of all sentient species"""
+    url = "https://swapi-api.hbtn.io/api/species"
     r = requests.get(url)
-    json = r.json()
-    results = json["results"]
-    planets = []
-    while json["next"]:
-        for res in results:
-            specie = res["designation"]
-            homeworld = res["homeworld"]
-            if (specie == "sentient" or res["classification"]) and homeworld:
-                url_p = homeworld
-                r_p = requests.get(url_p)
-                json_p = r_p.json()
-                planets.append(json_p["name"])
-        url = json["next"]
-        r = requests.get(url)
-        json = r.json()
-        results = json["results"]
-    for res in results:
-        specie = res["designation"]
-        homeworld = res["homeworld"]
-        if (specie == "sentient" or res["classification"]) and homeworld:
-            url_p = homeworld
-            r_p = requests.get(url_p)
-            json_p = r_p.json()
-            planets.append(json_p["name"])
-    return planets
+    world_list = []
+    while r.status_code == 200:
+        for species in r.json()["results"]:
+            url = species["homeworld"]
+            if url is not None:
+                ur = requests.get(url)
+                world_list.append(ur.json()["name"])
+        try:
+            r = requests.get(r.json()["next"])
+        except Exception:
+            break
+    return world_list
