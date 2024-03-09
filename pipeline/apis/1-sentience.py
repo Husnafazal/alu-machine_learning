@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
-Create a method that returns the list 
+Create a method that returns the list
 names
 """
 
+
 def sentientPlanets():
     """
-    Returns the list of names of the home planets 
-    """
+    Returns the list of names of the home planets    """
     url = "https://swapi-api.hbtn.io/api/species/"
     r = requests.get(url)
     json = r.json()
