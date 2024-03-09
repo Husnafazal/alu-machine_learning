@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Create a method that returns the list of ships.
+Create a method that returns the list of ships
 """
 import requests
 
