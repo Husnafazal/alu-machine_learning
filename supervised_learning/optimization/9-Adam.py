@@ -27,6 +27,7 @@ def update_variables_Adam(alpha, beta1, beta2, epsilon, var, grad, v, s, t):
     v_dW = (beta * v_dW) + ((1 - beta) * dW)
     s_dW = (beta * s_dW) + ((1 - beta) * (dW ** 2))
 
+
     returns:
         the updated variable, the new first moment, and the new second moment,
             respectively
