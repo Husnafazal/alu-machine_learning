@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
 Create a method that returns the list 
-
-
+names
+"""
 
 def sentientPlanets():
     """
