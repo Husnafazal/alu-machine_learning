@@ -28,9 +28,3 @@ Run the Jupyter Notebooks in order, starting with data preprocessing, followed b
 Contribution
 
 This project welcomes contributions from researchers and practitioners interested in improving post-operative care and reducing the incidence of SSIs. Suggestions for model improvement, additional data analysis, or implementation of newer AI techniques are highly appreciated.
-
-License
-Specify the license under which the project is released, allowing others to understand the permissions and restrictions.
-
-
-
