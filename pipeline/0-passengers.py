@@ -1,24 +1,29 @@
 #!/usr/bin/env python3
-
 """
-This module contains a function that
-uses Swapi API to get the list of ships that
-can hold given number of passengers"""
+Create a method that returns the list of ships.
+"""
+import requests
 
 
 def availableShips(passengerCount):
-    """return empty list if no ships carry that no.
-    of passengers else return list of ships"""
-    import requests
-    url = "https://swapi-api.alx-tools.com/api/starships/"
-    response = requests.get(url)
-    data = response.json()
+    """
+    Returns the list of ships that can hold a given number of passengers
+    :param passengerCount: number of passengers
+    :return: If no ship available, return an empty list
+    """
+    url = "https://swapi-api.hbtn.io/api/starships/"
+    r = requests.get(url)
+    json = r.json()
+    results = json["results"]
     ships = []
-    # print(data["results"])
-    for result in data['results']:
-        if result['passengers'] != "n/a":
-            passengers_no = int(result['passengers'].replace(',', ''))
-            # print(passengers_no)
-            if passengers_no == passengerCount:
-                ships.append(result['name'])
+    while json["next"]:
+        for res in results:
+            if res["passengers"] == 'n/a' or res["passengers"] == 'unknown':
+                continue
+            if int(res["passengers"].replace(',', '')) >= passengerCount:
+                ships.append(res["name"])
+        url = json["next"]
+        r = requests.get(url)
+        json = r.json()
+        results = json["results"]
     return ships
