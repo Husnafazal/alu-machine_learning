@@ -1,0 +1,3 @@
+// add a new attribute to a document in collection school
+// all docuuments with name "Holberton school" should be updated
+db.school.update({ name: "Holberton school" }, { $set: { address: "972 Mission street" } }, false, true);
