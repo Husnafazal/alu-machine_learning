@@ -231,7 +231,6 @@ class NST:
 
         return (gradients, total_cost, content_cost, style_cost)
 
-
     def generate_image(self, iterations=1000, step=None, lr=0.01,
                        beta1=0.9, beta2=0.99):
         """generate the neutral style transfered image"""
