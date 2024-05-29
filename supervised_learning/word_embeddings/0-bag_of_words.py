@@ -14,7 +14,11 @@ def bag_of_words(sentences, vocab=None):
     """
     vectorizer = CountVectorizer(vocabulary=vocab)
     embeddings = vectorizer.fit_transform(sentences).toarray()
-    features = vectorizer.get_feature_names_out()
+    # Check for the appropriate method based on scikit-learn version
+    try:
+        features = vectorizer.get_feature_names_out()
+    except AttributeError:
+        features = vectorizer.get_feature_names()
     return embeddings, features
 
 if __name__ == "__main__":
