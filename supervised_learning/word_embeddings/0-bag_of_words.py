@@ -1,14 +1,21 @@
 #!/usr/bin/env python3
-from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.feature_extraction.text import CountVectorizer
 import numpy as np
 
+def bag_of_words(sentences, vocab=None):
+    """Generate a bag of words embedding matrix from sentences.
 
-def tf_idf(sentences, vocab=None):
-    vectorizer = TfidfVectorizer(vocabulary=vocab)
+    Args:
+        sentences (list of str): Sentences to transform into BoW.
+        vocab (list of str, optional): Custom vocabulary to use.
+
+    Returns:
+        tuple: A tuple containing the embeddings and the feature names.
+    """
+    vectorizer = CountVectorizer(vocabulary=vocab)
     embeddings = vectorizer.fit_transform(sentences).toarray()
     features = vectorizer.get_feature_names_out()
     return embeddings, features
-
 
 if __name__ == "__main__":
     sentences = [
@@ -21,7 +28,6 @@ if __name__ == "__main__":
         "No one said that the cake was not very good",
         "Life is beautiful"
     ]
-    vocab = ["awesome", "learning", "children", "cake", "good", "none", "machine"]
-    E, F = tf_idf(sentences, vocab)
-    print(E)
-    print(F)
+    embeddings, features = bag_of_words(sentences)
+    print(embeddings)
+    print(features)
