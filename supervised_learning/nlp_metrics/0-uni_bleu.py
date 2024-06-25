@@ -41,4 +41,3 @@ def uni_bleu(references, sentence):
     BLEU_score = BLEU * np.exp(np.log(total / sentence_length))
 
     return BLEU_score
-    
