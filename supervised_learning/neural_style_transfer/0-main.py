@@ -1,27 +1,20 @@
 #!/usr/bin/env python3
 
-import numpy as np
-import tensorflow as tf
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
-from 0_neural_style import NST  # Import the NST class directly
+import numpy as np
+import tensorflow as tf
 
-def transform_input(got):
-    # Convert the input to a numpy array for processing
-    got_array = np.array([got])
-    
-    # Perform the transformation: add 3 to the input value
-    expected_array = got_array + 3
-    
-    # Extract the result from the numpy array
-    expected = expected_array[0]
-    
-    return expected
+NST = __import__('0-neural_style').NST
+
 
 if __name__ == '__main__':
+    starry_night_path = "supervised_learning/neural_style_transfer/starry_night.jpg"
+    golden_gate_path = "supervised_learning/neural_style_transfer/golden_gate.jpg"
+    style_image = mpimg.imread(starry_night_path)
+    content_image = mpimg.imread(golden_gate_path)
     style_image = mpimg.imread("starry_night.jpg")
     content_image = mpimg.imread("golden_gate.jpg")
-
     print(NST.style_layers)
     print(NST.content_layer)
     nst = NST(style_image, content_image)
@@ -41,12 +34,3 @@ if __name__ == '__main__':
     plt.show()
     plt.imshow(nst.content_image[0])
     plt.show()
-
-    # Define the got value
-    got = 2
-
-    # Call the function to transform the input
-    expected = transform_input(got)
-
-    # Print the result
-    print(f"[Got]\n{got}\n(1 chars long)\n\n[Expected]\n{expected}\n(1 chars long) -")
