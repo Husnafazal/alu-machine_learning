@@ -1,34 +1,36 @@
 #!/usr/bin/env python3
-from sklearn.feature_extraction.text import TfidfVectorizer
+
+"""This module has a function that
+creates a TF-IDF embedding"""
+import re
+import math
 import numpy as np
+from sklearn.feature_extraction.text import TfidfVectorizer
+
 
 def tf_idf(sentences, vocab=None):
-    """Generate a TF-IDF embedding matrix from sentences.
+    """
+    Creates a TF-IDF embedding
 
-    Args:
-        sentences (list of str): Sentences to transform into TF-IDF.
-        vocab (list of str, optional): Custom vocabulary to use.
+    parameters:
+        sentences [list]:
+            list of sentences to analyze
 
-    Returns:
-        tuple: A tuple containing the embeddings and the feature names.
+        vocab [list]:
+            list of vocabulary words to use for analysis
+            if None, all words within sentences should be used
+
+    returns:
+        embeddings,features:
+            embeddings [numpy.ndarray of shape (s, f)]:
+                contains the embeddings
+                s: number of sentences in sentences
+                f: number of features analyzed
+            features [list]:
+                list of features used for embeddings
     """
     vectorizer = TfidfVectorizer(vocabulary=vocab)
-    embeddings = vectorizer.fit_transform(sentences).toarray()
-    features = vectorizer.get_feature_names_out()
+    x = vectorizer.fit_transform(sentences)
+    embeddings = x.toarray()
+    features = vectorizer.get_feature_names()
     return embeddings, features
-
-if __name__ == "__main__":
-    sentences = [
-        "Holberton school is Awesome!",
-        "Machine learning is awesome",
-        "NLP is the future!",
-        "The children are our future",
-        "Our children's children are our grandchildren",
-        "The cake was not very good",
-        "No one said that the cake was not very good",
-        "Life is beautiful"
-    ]
-    vocab = ["awesome", "learning", "children", "cake", "good", "none", "machine"]
-    embeddings, features = tf_idf(sentences, vocab)
-    print(embeddings)
-    print(features)
