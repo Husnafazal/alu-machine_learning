@@ -182,6 +182,7 @@ class NST:
 
     def content_cost(self, content_output):
         """Function that calculates the content cost for content_output"""
+
         err = "content_output must be a tensor of shape {}".
  if not isinstance(content_output, (tf.Tensor, tf.Variable)):
             raise TypeError(err)
