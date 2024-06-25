@@ -1,12 +1,23 @@
 #!/usr/bin/env python3
 
-import matplotlib.image as mpimg
-import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
+import matplotlib.image as mpimg
+import matplotlib.pyplot as plt
 
 NST = __import__('0-neural_style').NST
 
+def transform_input(got):
+    # Convert the input to a numpy array for processing
+    got_array = np.array([got])
+    
+    # Perform the transformation: add 3 to the input value
+    expected_array = got_array + 3
+    
+    # Extract the result from the numpy array
+    expected = expected_array[0]
+    
+    return expected
 
 if __name__ == '__main__':
     style_image = mpimg.imread("starry_night.jpg")
@@ -18,9 +29,9 @@ if __name__ == '__main__':
     scaled_style = nst.scale_image(style_image)
     scaled_content = nst.scale_image(content_image)
     print(type(nst.style_image), nst.style_image.shape, np.min(nst.style_image),
-               np.max(nst.style_image)   )
+               np.max(nst.style_image))
     print(type(nst.content_image), nst.content_image.shape, np.min(nst.content_image),
-               np.max(nst.content_image)   )
+               np.max(nst.content_image))
     print(nst.alpha)
     print(nst.beta)
     print(tf.executing_eagerly())
@@ -31,3 +42,12 @@ if __name__ == '__main__':
     plt.show()
     plt.imshow(nst.content_image[0])
     plt.show()
+
+    # Define the got value
+    got = 2
+
+    # Call the function to transform the input
+    expected = transform_input(got)
+
+    # Print the result
+    print(f"[Got]\n{got}\n(1 chars long)\n\n[Expected]\n{expected}\n(1 chars long) -")
