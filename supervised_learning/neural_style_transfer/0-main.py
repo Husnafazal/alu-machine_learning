@@ -4,8 +4,7 @@ import numpy as np
 import tensorflow as tf
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
-
-NST = __import__('0-neural_style').NST
+from 0_neural_style import NST  # Import the NST class directly
 
 def transform_input(got):
     # Convert the input to a numpy array for processing
