@@ -42,17 +42,22 @@ def expectation_maximization(X, k,
         return None, None, None, None, None
     if not isinstance(verbose, bool):
         return None, None, None, None, None
-    n, d = X.shape
+
     pi, m, S = initialize(X, k)
     g, l = expectation(X, pi, m, S)
-    if verbose:
-        print("Log Likelihood after {} iterations: {}".format(0, l))
-    for i in range(1, iterations + 1):
+    prev_like = i = 0
+    msg = "Log Likelihood after {} iterations: {}"
+
+    for i in range(iterations):
+        if verbose and i % 10 == 0:
+            print(msg.format(i, total_log_like.round(5)))
         pi, m, S = maximization(X, g)
-        g, l_new = expectation(X, pi, m, S)
-        if verbose:
-            print("Log Likelihood after {} iterations: {}".format(i, l_new))
-        if abs(l_new - l) < tol:
+        g, total_log_like = expectation(X, pi, m, S)
+        if abs(prev_like - total_log_like) <= tol:
             break
-        l = l_new
-    return pi, m, S, g, l
+        prev_like = total_log_like
+
+    if verbose:
+        print(msg.format(i + 1, total_log_like.round(5)))
+
+    return pi, m, S, g, total_log_like
