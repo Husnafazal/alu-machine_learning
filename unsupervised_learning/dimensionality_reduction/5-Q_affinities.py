@@ -7,6 +7,7 @@ computes the Q affinities
 
 import numpy as np
 
+
 def Q_affinities(Y):
     """
     Function that calculates Q affinities
