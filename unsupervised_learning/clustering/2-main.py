@@ -1,8 +1,7 @@
-#!/usr/bin/env python3
-
+# 2-main.py
 import numpy as np
-kmeans = __import__('1-kmeans').kmeans
-variance = __import__('2-variance').variance
+from 1-kmeans import kmeans
+from 2-variance import variance
 
 if __name__ == "__main__":
     np.random.seed(0)
