@@ -7,7 +7,6 @@ computes the Q affinities
 
 import numpy as np
 
-
 def Q_affinities(Y):
     """
     Function that calculates Q affinities
@@ -30,4 +29,4 @@ def Q_affinities(Y):
     # Q = np.maximum(num, 1e-12)
     Q = np.maximum(num, 1e-12)
 
-    return Q, num\
+    return Q, num
