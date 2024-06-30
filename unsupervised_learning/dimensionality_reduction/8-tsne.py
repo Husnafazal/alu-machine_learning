@@ -1,16 +1,3 @@
-#!/usr/bin/env python3
-"""
-Defines function that performs a t-SNE transformation
-"""
-
-
-import numpy as np
-pca = __import__('1-pca').pca
-P_affinities = __import__('4-P_affinities').P_affinities
-grads = __import__('6-grads').grads
-cost = __import__('7-cost').cost
-
-
 def tsne(X, ndims=2, idims=50, perplexity=30.0, iterations=1000, lr=500):
     """
     Performs a t-SNE transformation
@@ -32,7 +19,23 @@ def tsne(X, ndims=2, idims=50, perplexity=30.0, iterations=1000, lr=500):
             the learning rate
 
     returns:
-        Y [numpy.ndarray of shape (n, ndim)]:
-            contatining the optimized low dimensional transformation of X
+        Y [numpy.ndarray of shape (n, ndims)]:
+            containing the optimized low dimensional transformation of X
     """
-    return None
+    # Step 1: Perform PCA to reduce dimensionality
+    X_pca = pca(X, idims)
+
+    # Step 2: Compute P affinities
+    P = P_affinities(X_pca, perplexity)
+
+    # Step 3: Gradient descent optimization
+    Y = np.random.normal(0, 0.1, size=(X.shape[0], ndims))  # Initialize Y randomly
+
+    for i in range(iterations):
+        Y, grads, cost_i = grads(Y, P)
+        if i % 100 == 0:
+            print(f"Cost at iteration {i}: {cost_i}")
+
+        # Update Y using gradient descent with learning rate lr
+
+    return Y
