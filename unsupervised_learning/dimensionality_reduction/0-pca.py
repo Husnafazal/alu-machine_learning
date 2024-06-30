@@ -1,43 +1,58 @@
 #!/usr/bin/env python3
+
 """
-Performs PCA on a dataset.
-"""
+This module contain a function that perfoms PCA
+on a dataset"""
+
 import numpy as np
+
 
 def pca(X, var=0.95):
     """
-    Performs PCA on a dataset.
+    Function that perfoms PCA on a dataset
 
-    Parameters:
-    - X: numpy.ndarray of shape (n, d) where n is the number of data points
-         and d is the number of dimensions in each point.
-    - var: fraction of the variance that the PCA transformation should maintain.
+    Arguments:
+    X: numpy.ndarray: (n, d) the dataset
+        n - no. of data points
+        d - no. of dimentions in each point
+    var: float: the fraction of variance that the PCA
+    should capture
 
     Returns:
-    - W: numpy.ndarray of shape (d, nd) where nd is the new dimensionality of the transformed X.
+    W: numpy.ndarray: (d, k) the matrix that will be used
+    to reduce the dimensionality of the dataset
     """
-    # Standardize the data (mean of 0 across all data points)
-    X_mean = np.mean(X, axis=0)
-    X_std = X - X_mean
-    
-    # Calculate covariance matrix
-    cov_matrix = np.cov(X_std, rowvar=False)
-    
-    # Perform eigen decomposition on the covariance matrix
-    eigen_values, eigen_vectors = np.linalg.eig(cov_matrix)
-    
-    # Sort eigenvalues and eigenvectors in descending order of eigenvalue
-    sorted_indices = np.argsort(eigen_values)[::-1]
-    eigen_values = eigen_values[sorted_indices]
-    eigen_vectors = eigen_vectors[:, sorted_indices]
-    
-    # Calculate the cumulative explained variance
-    cumulative_variance = np.cumsum(eigen_values) / np.sum(eigen_values)
-    
-    # Determine the number of dimensions to keep
-    nd = np.argmax(cumulative_variance >= var) + 1
-    
-    # Select the top nd eigenvectors as principal components
-    W = eigen_vectors[:, :nd]
-    
-    return W
+
+    # Center the data
+    # X = X - np.mean(X, axis=0)
+
+    # # Compute the covariance matrix
+    # cov = np.cov(X, rowvar=False)
+
+    # # Compute the eigenvalues and eigenvectors
+    # eigvals, eigvecs = np.linalg.eig(cov)
+
+    # # Sort the eigenvectors by decreasing eigenvalues
+    # idx = np.argsort(eigvals)[::-1]
+    # eigvecs = eigvecs[:, idx]
+
+    # # Compute the total variance
+    # total_var = np.sum(eigvals)
+
+    # # Compute the number of components to keep
+    # k = 0
+    # for i in range(len(eigvals)):
+    #     if np.sum(eigvals[:i+1]) / total_var >= var:
+    #         k = i + 1
+    #         break
+
+    # # Select the k eigenvectors
+    # W = eigvecs[:, :k]
+
+    # return W
+    u, s, v = np.linalg.svd(X)
+    ratios = list(x / np.sum(s) for x in s)
+    variance = np.cumsum(ratios)
+    nd = np.argwhere(variance >= var)[0, 0]
+    W = v.T[:, :(nd + 1)]
+    return (W)
