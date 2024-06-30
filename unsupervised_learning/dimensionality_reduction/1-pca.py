@@ -1,26 +1,37 @@
 #!/usr/bin/env python3
+
+"""
+This module contain a function that perfoms PCA
+on a dataset"""
+
 import numpy as np
 
+
 def pca(X, ndim):
-    """Performs PCA on a dataset with fixed dimensionality"""
-    # Center the data
-    X_centered = X - np.mean(X, axis=0)
-    
-    # Compute the covariance matrix
-    covariance_matrix = np.cov(X_centered, rowvar=False)
-    
-    # Eigen decomposition
-    eigenvalues, eigenvectors = np.linalg.eigh(covariance_matrix)
-    
-    # Sort eigenvalues and eigenvectors in descending order
-    sorted_indices = np.argsort(eigenvalues)[::-1]
-    sorted_eigenvalues = eigenvalues[sorted_indices]
-    sorted_eigenvectors = eigenvectors[:, sorted_indices]
-    
-    # Select the top `ndim` eigenvectors
-    W = sorted_eigenvectors[:, :ndim]
-    
-    # Transform the data
-    T = np.dot(X_centered, W)
-    
-    return T
+    """
+    Function that perfoms PCA on a dataset
+
+    X: numpy.ndarray: (n, d) the dataset
+        n - no. of data points
+        d - no. of dimentions in each point
+    ndim: new dimensionality of transformed X
+
+    Returns:
+    T: numpy.ndarray: (n, ndim) the transformed
+    version of X
+    """
+    # X = X - np.mean(X, axis=0)
+    # cov = np.cov(X, rowvar=False)
+    # eigvals, eigvecs = np.linalg.eig(cov)
+    # idx = np.argsort(eigvals)[::-1]
+    # eigvecs = eigvecs[:, idx]
+    # W = eigvecs[:, :ndim]
+    # T = np.matmul(X, W)
+
+    # return T
+    mean = np.mean(X, axis=0, keepdims=True)
+    A = X - mean
+    u, s, v = np.linalg.svd(A)
+    W = v.T[:, :ndim]
+    T = np.matmul(A, W)
+    return (T)
