@@ -1,7 +1,6 @@
-# 2-main.py
 import numpy as np
-from 1-kmeans import kmeans
-from 2-variance import variance
+from kmeans import kmeans  # Adjust the import statement to match your actual module name
+from variance import variance  # Adjust the import statement for variance accordingly
 
 if __name__ == "__main__":
     np.random.seed(0)
@@ -14,5 +13,6 @@ if __name__ == "__main__":
     np.random.shuffle(X)
 
     for k in range(1, 11):
+        print(f"Running K-means with {k} clusters...")
         C, _ = kmeans(X, k)
         print('Variance with {} clusters: {}'.format(k, variance(X, C).round(5)))
