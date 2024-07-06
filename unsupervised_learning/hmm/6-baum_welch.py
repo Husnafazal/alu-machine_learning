@@ -35,7 +35,8 @@ def forward(Observation, Emission, Transition, Initial):
     for t in range(1, T):
         for j in range(N):
             alpha[j, t] = np.sum(
-                alpha[:, t - 1] * Transition[:, j] * Emission[j, Observation[t]]
+                alpha[:, t - 1] * Transition[:, j] *
+                Emission[j, Observation[t]]
             )
 
     return alpha
@@ -68,7 +69,8 @@ def backward(Observation, Emission, Transition, Initial):
     for t in range(T - 2, -1, -1):
         for i in range(N):
             beta[i, t] = np.sum(
-                Transition[i, :] * Emission[:, Observation[t + 1]] * beta[:, t + 1]
+                Transition[i, :] * Emission[:, Observation[t + 1]] *
+                beta[:, t + 1]
             )
 
     return beta
