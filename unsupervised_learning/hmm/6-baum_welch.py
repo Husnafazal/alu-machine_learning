@@ -13,13 +13,18 @@ def forward(Observation, Emission, Transition, Initial):
     Performs the forward algorithm for a hidden Markov model
 
     Parameters:
-    - Observation: numpy.ndarray of shape (T,) that contains the index of the observation
-    - Emission: numpy.ndarray of shape (N, M) containing the emission probabilities
-    - Transition: numpy.ndarray of shape (N, N) containing the transition probabilities
-    - Initial: numpy.ndarray of shape (N, 1) containing the initial probabilities
+    - Observation: numpy.ndarray of shape (T,) that contains 
+      the index of the observation
+    - Emission: numpy.ndarray of shape (N, M) containing the 
+      emission probabilities
+    - Transition: numpy.ndarray of shape (N, N) containing the 
+      transition probabilities
+    - Initial: numpy.ndarray of shape (N, 1) containing the 
+      initial probabilities
 
     Returns:
-    - alpha: numpy.ndarray of shape (N, T) containing the forward probabilities
+    - alpha: numpy.ndarray of shape (N, T) containing the forward 
+      probabilities
     """
     T = Observation.shape[0]
     N, M = Emission.shape
@@ -41,13 +46,18 @@ def backward(Observation, Emission, Transition, Initial):
     Performs the backward algorithm for a hidden Markov model
 
     Parameters:
-    - Observation: numpy.ndarray of shape (T,) that contains the index of the observation
-    - Emission: numpy.ndarray of shape (N, M) containing the emission probabilities
-    - Transition: numpy.ndarray of shape (N, N) containing the transition probabilities
-    - Initial: numpy.ndarray of shape (N, 1) containing the initial probabilities
+    - Observation: numpy.ndarray of shape (T,) that contains 
+      the index of the observation
+    - Emission: numpy.ndarray of shape (N, M) containing the 
+      emission probabilities
+    - Transition: numpy.ndarray of shape (N, N) containing the 
+      transition probabilities
+    - Initial: numpy.ndarray of shape (N, 1) containing the 
+      initial probabilities
 
     Returns:
-    - beta: numpy.ndarray of shape (N, T) containing the backward probabilities
+    - beta: numpy.ndarray of shape (N, T) containing the backward 
+      probabilities
     """
     T = Observation.shape[0]
     N, M = Emission.shape
@@ -69,15 +79,22 @@ def baum_welch(Observations, Transition, Emission, Initial, iterations=1000):
     Performs the Baum-Welch algorithm for a hidden Markov model
 
     Parameters:
-    - Observations: numpy.ndarray of shape (T,) containing the index of the observation
-    - Transition: numpy.ndarray of shape (N, N) containing the initialized transition probabilities
-    - Emission: numpy.ndarray of shape (N, M) containing the initialized emission probabilities
-    - Initial: numpy.ndarray of shape (N, 1) containing the starting probabilities
-    - iterations: int indicating the number of iterations to perform (default is 1000)
+    - Observations: numpy.ndarray of shape (T,) containing the 
+      index of the observation
+    - Transition: numpy.ndarray of shape (N, N) containing the 
+      initialized transition probabilities
+    - Emission: numpy.ndarray of shape (N, M) containing the 
+      initialized emission probabilities
+    - Initial: numpy.ndarray of shape (N, 1) containing the 
+      starting probabilities
+    - iterations: int indicating the number of iterations to 
+      perform (default is 1000)
 
     Returns:
-    - Transition: numpy.ndarray of shape (N, N) containing the updated transition probabilities
-    - Emission: numpy.ndarray of shape (N, M) containing the updated emission probabilities
+    - Transition: numpy.ndarray of shape (N, N) containing the 
+      updated transition probabilities
+    - Emission: numpy.ndarray of shape (N, M) containing the 
+      updated emission probabilities
     """
     if (not isinstance(Observations, np.ndarray) or len(Observations.shape) != 1):
         return None, None
@@ -104,8 +121,11 @@ def baum_welch(Observations, Transition, Emission, Initial, iterations=1000):
 
         for t in range(T - 1):
             denom = np.sum(
-                alpha[:, t] * (Transition @ (Emission[:, Observations[t + 1]] *
-                                             beta[:, t + 1]))
+                alpha[:, t] * (
+                    Transition @ (
+                        Emission[:, Observations[t + 1]] * beta[:, t + 1]
+                    )
+                )
             )
 
             for i in range(M):
@@ -117,8 +137,12 @@ def baum_welch(Observations, Transition, Emission, Initial, iterations=1000):
                     ) / denom
 
         gamma = np.sum(xi, axis=1)
-        Transition = np.sum(xi, axis=2) / np.sum(gamma, axis=1).reshape((-1, 1))
-        gamma = np.hstack((gamma, np.sum(xi[:, :, T - 2], axis=0).reshape((-1, 1))))
+        Transition = np.sum(xi, axis=2) / np.sum(
+            gamma, axis=1
+        ).reshape((-1, 1))
+        gamma = np.hstack((
+            gamma, np.sum(xi[:, :, T - 2], axis=0).reshape((-1, 1))
+        ))
 
         denom = np.sum(gamma, axis=1)
         for k in range(N):
