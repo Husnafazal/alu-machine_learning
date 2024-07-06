@@ -9,6 +9,18 @@ import numpy as np
 
 
 def forward(Observation, Emission, Transition, Initial):
+    """
+    Performs the forward algorithm for a hidden Markov model
+
+    Parameters:
+    - Observation: numpy.ndarray of shape (T,) that contains the index of the observation
+    - Emission: numpy.ndarray of shape (N, M) containing the emission probabilities
+    - Transition: numpy.ndarray of shape (N, N) containing the transition probabilities
+    - Initial: numpy.ndarray of shape (N, 1) containing the initial probabilities
+
+    Returns:
+    - alpha: numpy.ndarray of shape (N, T) containing the forward probabilities
+    """
     T = Observation.shape[0]
     N, M = Emission.shape
 
@@ -17,11 +29,26 @@ def forward(Observation, Emission, Transition, Initial):
 
     for t in range(1, T):
         for j in range(N):
-            alpha[j, t] = np.sum(alpha[:, t - 1] * Transition[:, j] * Emission[j, Observation[t]])
+            alpha[j, t] = np.sum(
+                alpha[:, t - 1] * Transition[:, j] * Emission[j, Observation[t]]
+            )
 
     return alpha
 
+
 def backward(Observation, Emission, Transition, Initial):
+    """
+    Performs the backward algorithm for a hidden Markov model
+
+    Parameters:
+    - Observation: numpy.ndarray of shape (T,) that contains the index of the observation
+    - Emission: numpy.ndarray of shape (N, M) containing the emission probabilities
+    - Transition: numpy.ndarray of shape (N, N) containing the transition probabilities
+    - Initial: numpy.ndarray of shape (N, 1) containing the initial probabilities
+
+    Returns:
+    - beta: numpy.ndarray of shape (N, T) containing the backward probabilities
+    """
     T = Observation.shape[0]
     N, M = Emission.shape
 
@@ -30,30 +57,27 @@ def backward(Observation, Emission, Transition, Initial):
 
     for t in range(T - 2, -1, -1):
         for i in range(N):
-            beta[i, t] = np.sum(Transition[i, :] * Emission[:,
-                                                            Observation[t + 1]] * beta[:, t + 1])
+            beta[i, t] = np.sum(
+                Transition[i, :] * Emission[:, Observation[t + 1]] * beta[:, t + 1]
+            )
 
     return beta
 
 
 def baum_welch(Observations, Transition, Emission, Initial, iterations=1000):
     """
-    performs the Baum-Welch algorithm
-    for a hidden markov model
+    Performs the Baum-Welch algorithm for a hidden Markov model
 
-    Observation - numpy.ndarray (T,) that contains
-    index of the observation
-        - T - number of observations
-    Emission - numpy.ndarray (M, M) containing the
-    initialized emission probabilities
-    Transition - 2D numpy.ndarray (M, M) containing the
-    initialized transition probabilities
-    Initial - numpy.ndarray (M, 1) containing
-    starting probabilities
-    Return:
-    Transition, Emission, or None, None on failure
-        - Transition is the updated transition probabilities
-        - Emission is the updated emission probabilities
+    Parameters:
+    - Observations: numpy.ndarray of shape (T,) containing the index of the observation
+    - Transition: numpy.ndarray of shape (N, N) containing the initialized transition probabilities
+    - Emission: numpy.ndarray of shape (N, M) containing the initialized emission probabilities
+    - Initial: numpy.ndarray of shape (N, 1) containing the starting probabilities
+    - iterations: int indicating the number of iterations to perform (default is 1000)
+
+    Returns:
+    - Transition: numpy.ndarray of shape (N, N) containing the updated transition probabilities
+    - Emission: numpy.ndarray of shape (N, M) containing the updated emission probabilities
     """
     if (not isinstance(Observations, np.ndarray) or len(Observations.shape) != 1):
         return None, None
@@ -79,12 +103,18 @@ def baum_welch(Observations, Transition, Emission, Initial, iterations=1000):
         gamma = np.zeros((M, T))
 
         for t in range(T - 1):
-            denom = np.sum(alpha[:, t] * (Transition @ (Emission[:,
-                                                                 Observations[t + 1]] * beta[:, t + 1])))
+            denom = np.sum(
+                alpha[:, t] * (Transition @ (Emission[:, Observations[t + 1]] *
+                                             beta[:, t + 1]))
+            )
 
             for i in range(M):
                 for j in range(M):
-                    xi[i, j, t] = (alpha[i, t] * Transition[i, j] * Emission[j, Observations[t + 1]] * beta[j, t + 1]) / denom
+                    xi[i, j, t] = (
+                        alpha[i, t] * Transition[i, j] *
+                        Emission[j, Observations[t + 1]] *
+                        beta[j, t + 1]
+                    ) / denom
 
         gamma = np.sum(xi, axis=1)
         Transition = np.sum(xi, axis=2) / np.sum(gamma, axis=1).reshape((-1, 1))
