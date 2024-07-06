@@ -65,9 +65,7 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
         x = keras.layers.Dense(nodes, activation='relu')(x)
     z_mean = keras.layers.Dense(latent_dims)(x)
     z_log_var = keras.layers.Dense(latent_dims)(x)
-    z = keras.layers.Lambda(
-        sampling, output_shape=(latent_dims,), name='z'
-    )([z_mean, z_log_var])
+    z = keras.layers.Lambda(sampling, output_shape=(latent_dims,), name='z')([z_mean, z_log_var])
 
     encoder = keras.Model(inputs, [z, z_mean, z_log_var], name='encoder')
 
@@ -93,9 +91,7 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
             self.add_loss(loss)
             return outputs
 
-    outputs = VAELossLayer()(
-        [inputs, outputs, encoder(inputs)[1], encoder(inputs)[2]]
-    )
+    outputs = VAELossLayer()([inputs, outputs, encoder(inputs)[1], encoder(inputs)[2]])
     auto = keras.Model(inputs, outputs, name='vae')
     auto.compile(optimizer='adam')
 
