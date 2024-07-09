@@ -1,55 +1,70 @@
 #!/usr/bin/env python3
+"""
+Module that defines a variational autoencoder (VAE)
+"""
 
-import matplotlib.pyplot as plt
-import numpy as np
-import tensorflow as tf
-from tensorflow.keras.datasets import mnist
+import tensorflow.keras as keras
+from keras import layers, models, backend as K
+from keras.losses import binary_crossentropy
 
-autoencoder = __import__('3-variational').autoencoder
+def sampling(args):
+    """Reparameterization trick by sampling from an isotropic unit Gaussian.
+    Arguments:
+        args (tensor): mean and log of variance of Q(z|X)
+    Returns:
+        z (tensor): sampled latent vector
+    """
+    z_mean, z_log_var = args
+    batch = K.shape(z_mean)[0]
+    dim = K.int_shape(z_mean)[1]
+    epsilon = K.random_normal(shape=(batch, dim))
+    return z_mean + K.exp(0.5 * z_log_var) * epsilon
 
-# Load and preprocess the MNIST dataset
-(x_train, _), (x_test, _) = mnist.load_data()
-x_train = x_train.astype('float32') / 255.
-x_test = x_test.astype('float32') / 255.
-x_train = x_train.reshape((-1, 784))
-x_test = x_test.reshape((-1, 784))
-
-# Set random seeds for reproducibility
-np.random.seed(0)
-tf.set_random_seed(0)
-
-# Create the variational autoencoder
-encoder, decoder, auto = autoencoder(784, [512], 2)
-
-# Train the autoencoder
-auto.fit(x_train, x_train, epochs=50, batch_size=256, shuffle=True, validation_data=(x_test, x_test))
-
-# Encode and decode some test data
-encoded, mu, log_sig = encoder.predict(x_test[:10])
-print(mu)
-print(np.exp(log_sig / 2))
-reconstructed = decoder.predict(encoded).reshape((-1, 28, 28))
-x_test = x_test.reshape((-1, 28, 28))
-
-# Plot the original and reconstructed images
-for i in range(10):
-    ax = plt.subplot(2, 10, i + 1)
-    ax.axis('off')
-    plt.imshow(x_test[i], cmap='gray')
-    ax = plt.subplot(2, 10, i + 11)
-    ax.axis('off')
-    plt.imshow(reconstructed[i], cmap='gray')
-plt.show()
-
-# Generate images from the latent space
-l1 = np.linspace(-3, 3, 25)
-l2 = np.linspace(-3, 3, 25)
-L = np.stack(np.meshgrid(l1, l2, sparse=False, indexing='ij'), axis=2)
-G = decoder.predict(L.reshape((-1, 2)), batch_size=125)
-
-# Plot the generated images
-for i in range(25 * 25):
-    ax = plt.subplot(25, 25, i + 1)
-    ax.axis('off')
-    plt.imshow(G[i].reshape((28, 28)), cmap='gray')
-plt.show()
+def autoencoder(input_dims, hidden_layers, latent_dims):
+    """Creates a variational autoencoder.
+    
+    Arguments:
+        input_dims (int): dimensions of the model input
+        hidden_layers (list): number of nodes for each hidden layer in the encoder
+        latent_dims (int): dimensions of the latent space representation
+    
+    Returns:
+        encoder (Model): encoder model
+        decoder (Model): decoder model
+        auto (Model): full autoencoder model
+    """
+    # Encoder
+    inputs = keras.Input(shape=(input_dims,))
+    x = inputs
+    for units in hidden_layers:
+        x = layers.Dense(units, activation='relu')(x)
+    
+    z_mean = layers.Dense(latent_dims)(x)
+    z_log_var = layers.Dense(latent_dims)(x)
+    
+    z = layers.Lambda(sampling, output_shape=(latent_dims,))([z_mean, z_log_var])
+    
+    encoder = models.Model(inputs, [z, z_mean, z_log_var], name='encoder')
+    
+    # Decoder
+    latent_inputs = keras.Input(shape=(latent_dims,))
+    x = latent_inputs
+    for units in reversed(hidden_layers):
+        x = layers.Dense(units, activation='relu')(x)
+    outputs = layers.Dense(input_dims, activation='sigmoid')(x)
+    
+    decoder = models.Model(latent_inputs, outputs, name='decoder')
+    
+    # Autoencoder
+    outputs = decoder(encoder(inputs)[0])
+    auto = models.Model(inputs, outputs, name='autoencoder')
+    
+    # Loss function
+    reconstruction_loss = binary_crossentropy(inputs, outputs) * input_dims
+    kl_loss = -0.5 * K.sum(1 + z_log_var - K.square(z_mean) - K.exp(z_log_var), axis=-1)
+    vae_loss = K.mean(reconstruction_loss + kl_loss)
+    auto.add_loss(vae_loss)
+    
+    auto.compile(optimizer='adam')
+    
+    return encoder, decoder, auto
