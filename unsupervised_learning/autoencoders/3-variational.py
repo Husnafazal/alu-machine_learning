@@ -4,10 +4,8 @@ Module that defines a variational autoencoder (VAE)
 """
 
 import tensorflow.keras as keras
-from tensorflow.keras import layers, models
-from tensorflow.keras.losses import binary_crossentropy
-from tensorflow.keras import backend as K
-
+from keras import layers, models, backend as K
+from keras.losses import binary_crossentropy
 
 def sampling(args):
     """Reparameterization trick by sampling from an isotropic unit Gaussian.
@@ -21,7 +19,6 @@ def sampling(args):
     dim = K.int_shape(z_mean)[1]
     epsilon = K.random_normal(shape=(batch, dim))
     return z_mean + K.exp(0.5 * z_log_var) * epsilon
-
 
 def autoencoder(input_dims, hidden_layers, latent_dims):
     """Creates a variational autoencoder.
@@ -37,7 +34,7 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
         auto (Model): full autoencoder model
     """
     # Encoder
-    inputs = layers.Input(shape=(input_dims,))
+    inputs = keras.Input(shape=(input_dims,))
     x = inputs
     for units in hidden_layers:
         x = layers.Dense(units, activation='relu')(x)
@@ -50,7 +47,7 @@ def autoencoder(input_dims, hidden_layers, latent_dims):
     encoder = models.Model(inputs, [z, z_mean, z_log_var], name='encoder')
     
     # Decoder
-    latent_inputs = layers.Input(shape=(latent_dims,))
+    latent_inputs = keras.Input(shape=(latent_dims,))
     x = latent_inputs
     for units in reversed(hidden_layers):
         x = layers.Dense(units, activation='relu')(x)
