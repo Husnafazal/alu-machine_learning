@@ -1,0 +1,8 @@
+- `0-gp.py`: Initializes the Gaussian Process with a Radial Basis Function (RBF) kernel.
+- `1-gp.py`: Adds prediction capabilities to the Gaussian Process.
+- `2-gp.py`: Adds the ability to update the Gaussian Process with new sample points.
+- `3-bayes_opt.py`: Sets up the Bayesian Optimization class that uses the Gaussian Process.
+- `4-bayes_opt.py`: Implements the acquisition function for Bayesian Optimization.
+- `5-bayes_opt.py`: Implements the optimization loop for Bayesian Optimization.
+- `main.py`: Example script to demonstrate the usage of the Bayesian Optimization.
+- `requirements.txt`: Lists the required packages for the project.
