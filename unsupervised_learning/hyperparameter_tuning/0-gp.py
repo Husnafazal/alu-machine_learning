@@ -4,6 +4,7 @@ Module for Gaussian Process initialization.
 """
 import numpy as np
 
+
 class GaussianProcess:
     """
     Class that represents a noiseless 1D Gaussian process.
