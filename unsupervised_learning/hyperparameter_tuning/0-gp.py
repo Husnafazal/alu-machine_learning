@@ -4,7 +4,6 @@ Module for Gaussian Process initialization.
 """
 import numpy as np
 
-
 class GaussianProcess:
     """
     Class that represents a noiseless 1D Gaussian process.
@@ -15,12 +14,12 @@ class GaussianProcess:
         Initialize a Gaussian Process.
 
         Args:
-            X_init (numpy.ndarray): Inputs sampled with black-box function,
+            X_init (numpy.ndarray): Inputs already sampled with the black-box function,
                                     shape (t, 1).
-            Y_init (numpy.ndarray): Outputs black-box function input in X_init,
+            Y_init (numpy.ndarray): Outputs of the black-box function for each input in X_init,
                                     shape (t, 1).
             l (float): Length parameter for the kernel.
-            sigma_f (float): Standard deviation to output black-box function.
+            sigma_f (float): Standard deviation given to the output of the black-box function.
         """
         self.X = X_init
         self.Y = Y_init
@@ -30,7 +29,7 @@ class GaussianProcess:
 
     def kernel(self, X1, X2):
         """
-        Compute the covariance kernel matrix.
+        Compute the covariance kernel matrix between two matrices using the Radial Basis Function (RBF) kernel.
 
         Args:
             X1 (numpy.ndarray): Input matrix 1, shape (m, 1).
@@ -39,7 +38,7 @@ class GaussianProcess:
         Returns:
             numpy.ndarray: Covariance kernel matrix, shape (m, n).
         """
-         sqdist = (
+        sqdist = (
             np.sum(X1**2, 1).reshape(-1, 1) +
             np.sum(X2**2, 1) -
             2 * np.dot(X1, X2.T)
