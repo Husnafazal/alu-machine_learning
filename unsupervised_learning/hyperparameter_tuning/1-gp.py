@@ -74,3 +74,9 @@ class GaussianProcess:
         sigma_s = np.sqrt(np.maximum(var_s, 0))
 
         return mu_s.flatten(), sigma_s
+
+# Output check example (to be replaced with actual test code):
+# Example usage and testing code should be added here to verify `predict` function behavior.
+if __name__ == "__main__":
+    # Example usage or testing code goes here
+    pass
