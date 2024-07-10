@@ -4,7 +4,6 @@ Module for Gaussian Process initialization.
 """
 import numpy as np
 
-
 class GaussianProcess:
     """
     Class that represents a noiseless 1D Gaussian process.
@@ -41,9 +40,5 @@ class GaussianProcess:
         Returns:
             numpy.ndarray: Covariance kernel matrix, shape (m, n).
         """
-        sqdist = 
-            np.sum(X1**2, 1).reshape(-1, 1) +
-            np.sum(X2**2, 1) -
-            2 * np.dot(X1, X2.T)
-        )
+        sqdist = np.sum(X1**2, 1).reshape(-1, 1) + np.sum(X2**2, 1) - 2 * np.dot(X1, X2.T)
         return self.sigma_f**2 * np.exp(-0.5 / self.l**2 * sqdist)
