@@ -14,8 +14,10 @@ class GaussianProcess:
         Initialize a Gaussian Process.
 
         Args:
-            X_init (numpy.ndarray): Inputs already sampled with the black-box function, shape (t, 1).
-            Y_init (numpy.ndarray): Outputs of the black-box function for each input in X_init, shape (t, 1).
+            X_init (numpy.ndarray): Inputs already sampled with the black-box function,
+                                    shape (t, 1).
+            Y_init (numpy.ndarray): Outputs of the black-box function for each input in X_init,
+                                    shape (t, 1).
             l (float): Length parameter for the kernel.
             sigma_f (float): Standard deviation given to the output of the black-box function.
         """
