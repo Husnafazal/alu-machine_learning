@@ -39,7 +39,7 @@ class GaussianProcess:
         Returns:
             numpy.ndarray: Covariance kernel matrix, shape (m, n).
         """
-        sqdist = (
+         sqdist = (
             np.sum(X1**2, 1).reshape(-1, 1) +
             np.sum(X2**2, 1) -
             2 * np.dot(X1, X2.T)
